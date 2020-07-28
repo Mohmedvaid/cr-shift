@@ -1,15 +1,24 @@
 $(document).ready(function(){
     let totalInputBoxes;
 
+    let postSchedule =  function(newSchedule) {
+        return  $.ajax({
+            url: "/api/schedule",
+            data: newSchedule,
+            method: "POST"
+        })
+    }
+
     $(`.dropdown-item`).click(function(e){
         e.stopPropagation()
         let totalInputBoxes = $(this).text()
-        displayInputBox(totalInputBoxes);
+        displayInputBoxOnDOM(totalInputBoxes);
+        // $(`.dropdown-item`).dropdown('hide')
 
         $(`#submit-testers-btn`).click(function(e){
             console.log(`submit clicked`)
             e.stopPropagation();
-            getAllTime(totalInputBoxes);
+            getAllTimeFromDOM(totalInputBoxes);
         })
     })
             
@@ -34,15 +43,19 @@ $(document).ready(function(){
 
     function getAllTimeFromDOM(totalInputBoxes){
         console.log(`clicked`)
-        let newSchedule  = []
+        let newSchedule  = {
+            totalTesters: totalInputBoxes,
+            totalDuration:[]
+        }
         for (let i =0; i<totalInputBoxes; i++){
-            newSchedule[i]= {
-                time: $(`input#Time${i}`).val(),
-                meridian: $(`input#Meridiem${i}`).val()
-            }
+            newSchedule.totalDuration[i]= $(`input#Time${i}`).val() + " " + $(`input#Meridiem${i}`).val()
+
         }
         console.log(`new schedule`)
         console.log(newSchedule);
+
+        let res = postSchedule(newSchedule);
+        console.log(res)
     }
 
 

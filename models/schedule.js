@@ -1,10 +1,9 @@
 const mongoose = require("mongoose");
-
 const Schema = mongoose.Schema;
 
 const scheduleSchema = new Schema({
 
-    totalTester: {
+    totalTesters: {
         type: Number,
         trim: true,
         require: "Number of testers cannot be empty"
@@ -19,6 +18,6 @@ const scheduleSchema = new Schema({
 
 });
 
-const schedule = mongoose.model("schedule", scheduleSchema);
+const schedules = mongoose.model("schedules", scheduleSchema);
 
-module.exports = schedule;
+module.exports = schedules;

@@ -2,7 +2,7 @@
 const router = require("express").Router();
 
 const Testers = require("../models/testers");
-// const Schedule = require("../models/schedule")
+const Schedule = require("../models/schedule")
 
 
 
@@ -29,6 +29,8 @@ router.get("/api/testers", (req, res)=>{
 
 
 router.post("/api/schedule", ({body}, res) => {
+  console.log(`body`)
+  console.log(body)
   Schedule.create(body)
     .then(dbSchedule => {
       console.log(dbSchedule)
