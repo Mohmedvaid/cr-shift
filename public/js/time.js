@@ -1,12 +1,21 @@
 $(document).ready(function(){
+    let totalInputBoxes;
 
-    console.log(`yaya`)
     $(`.dropdown-item`).click(function(e){
+        e.stopPropagation()
         let totalInputBoxes = $(this).text()
         displayInputBox(totalInputBoxes);
-    })
 
-    function displayInputBox(totalInputBoxes){
+        $(`#submit-testers-btn`).click(function(e){
+            console.log(`submit clicked`)
+            e.stopPropagation();
+            getAllTime(totalInputBoxes);
+        })
+    })
+            
+
+
+    function displayInputBoxOnDOM(totalInputBoxes){
         $(`#input-boxes`).empty()
         for (let i = 0; i <totalInputBoxes; i++){
             const block = 
@@ -14,12 +23,26 @@ $(document).ready(function(){
                     <div class="input-group-prepend">
                         <span class="input-group-text">First and last name</span>
                     </div>
-                    <input type="text" aria-label="First name" class="form-control">
-                    <input type="text" aria-label="Last name" class="form-control">
+                    <input id="Time${i}" type="text" aria-label="Time" class="form-control">
+                    <input id="Meridiem${i}" type="text" aria-label="Meridiem" class="form-control">
                 </div> `;
         
             $(`#input-boxes`).append(block)
         }
+        $(`#input-boxes`).append(`<button id="submit-testers-btn" type="button" class=" btn btn-secondary">Submit</button>`)
+    }
+
+    function getAllTimeFromDOM(totalInputBoxes){
+        console.log(`clicked`)
+        let newSchedule  = []
+        for (let i =0; i<totalInputBoxes; i++){
+            newSchedule[i]= {
+                time: $(`input#Time${i}`).val(),
+                meridian: $(`input#Meridiem${i}`).val()
+            }
+        }
+        console.log(`new schedule`)
+        console.log(newSchedule);
     }
 
 
