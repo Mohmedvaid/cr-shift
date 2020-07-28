@@ -6,11 +6,11 @@ router.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "../public/html/index.html"))
 });
 
-router.get("/add", (req, res) => {
-    res.sendFile(path.join(__dirname, "../public/html/add.html"))
+router.get("/testers", (req, res) => {
+    res.sendFile(path.join(__dirname, "../public/html/add-testers.html"))
 });
 
-router.get("/update", (req, res) => {
-    res.sendFile(path.join(__dirname, "../public/html/update.html"))
+router.get("/time", (req, res) => {
+    res.sendFile(path.join(__dirname, "../public/html/add-time.html"))
 });
 module.exports = router;

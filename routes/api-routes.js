@@ -18,7 +18,7 @@ router.post("/api/testers", ({body}, res) => {
   });
 
 router.get("/api/testers", (req, res)=>{
-  dbTesters.find({})
+  Testers.find({})
     .then(dbTesters => {
       res.json(dbTesters);
     })
