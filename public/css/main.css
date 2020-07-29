@@ -1,0 +1,11 @@
+.Tester-container{
+    display: flex;
+}
+
+.tester-name, .tester-time{
+    margin: 5px;
+}
+
+.remove-btn{
+    margin: 5px;
+}
