@@ -78,13 +78,23 @@ router.post("/api/schedule", ({body}, res) => {
       .then(availableTesters=>{
         res.json(availableTesters)
       })
+      .catch(err => {
+        res.json(err);
+      });
   })
 
-  // router.put("/api/tester/update/:id", (req, res)=>{
-  //   const id= req.params.id
+  //UPDATE THE TESTER AVAILIBILITY
+  router.put("/api/tester/update/:id", (req, res)=>{
+    const id= req.params.id
 
-  //   Testers.
-  // })
+    Testers.findOneAndUpdate({_id: id}, {available: false})
+      .then(updatedTesters=>{
+        res.json(updatedTesters)
+      })
+      .catch(err => {
+        res.json(err);
+      });
+  })
   
 module.exports = router
 

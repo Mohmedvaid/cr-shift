@@ -16,13 +16,20 @@ $(document).ready(function () {
         })
     }
 
+    let updateTester= function(testerId){
+        return  $.ajax({
+            url: "/api/tester/update/" + testerId,
+            method: "PUT"
+        })
+     }
+
     function render(availableTesters, availableTime){
         
         for (i = 0; i< availableTesters.length; i++){
             const block = ` <div class="Tester-container">
             <div class="tester-name" id="${availableTesters[i]._id}">${availableTesters[i].name}</div>
             <div class="tester-time">${availableTime.totalDuration[i]}</div>
-            <button class="remove-tester-btn" id="${availableTesters[i]._id}" type="button" class="remove-btn btn btn-danger">Absent</button>
+            <button id="${availableTesters[i]._id}" type="button" class="remove-tester-btn remove-btn btn btn-danger">Absent</button>
             </div>
             `
             $(`.schedule-container`).append(block)
@@ -39,46 +46,19 @@ $(document).ready(function () {
 
      }
 
-     function removeTester(){
-         $(`.remove-tester-btn`).click()
-         const btnId = this.id
-     }
 
-     function updateTester(){
-        return  $.ajax({
-            url: "/api/schedule/" + numOfTesters,
-            method: "GET"
-        })
-     }
+     $(document).on('click', '.remove-tester-btn', function(){ 
+        console.log(this.id);
+        updateTester(this.id);
+        $(`.schedule-container`).empty();
+        display();
+
+   });
+
 
 
      display();
-
-
-
-    // //ADD NEW TESTER
-    // $(`#add-tester-btn`).click(function(){
-    //     console.log(`clicked`);
-    //     let newTester = {
-    //         name: $(`#add-tester-input`).val(),
-    //         available: true
-    //     }
-    //     addTesters(newTester);
-    //     displayTesters();
-    // })
-
-    // //GET AND DISPLAY TESTERS
-    // async function displayTesters(){
-    //     let testers = await getTesters()
-    //     console.log(testers)
-    //     $(`.testers`).empty()
-
-    //     testers.forEach(tester => {
-    //         const block = `<h2> ${tester.name}</h2>`
-    //         $(`.testers`).append(block)
-    //     });
-    // }
-    // displayTesters();
+    //  removeTester();
 
 
 
