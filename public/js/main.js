@@ -23,6 +23,14 @@ $(document).ready(function () {
         })
      }
 
+     let updateAllTester= function(){
+        return  $.ajax({
+            url: "/api/updateall",
+            method: "PUT"
+        })
+     }
+
+
     function render(availableTesters, availableTime){
         
         for (i = 0; i< availableTesters.length; i++){
@@ -36,7 +44,9 @@ $(document).ready(function () {
         }
     }
 
+    //RENDER FUNCTION
      async function display(){
+        $(`.schedule-container`).empty();
         let availableTesters =  await getAvailableTesters(true)
         console.log(`availableTesters`)
         console.log(availableTesters)
@@ -46,19 +56,25 @@ $(document).ready(function () {
 
      }
 
-
+     //REMOVE AND UPDATE DOM   
      $(document).on('click', '.remove-tester-btn', function(){ 
         console.log(this.id);
         updateTester(this.id);
         $(`.schedule-container`).empty();
         display();
-
    });
+
+   $(`.reset-btn`).click(function(){
+       updateAllTester();
+       display();
+
+   })
+
+
 
 
 
      display();
-    //  removeTester();
 
 
 

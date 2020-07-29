@@ -95,6 +95,18 @@ router.post("/api/schedule", ({body}, res) => {
         res.json(err);
       });
   })
+
+  //UPDATE THE TESTER AVAILIBILITY
+  router.put("/api/updateall", (req, res)=>{
+
+    Testers.updateMany({available: false}, {available: true})
+      .then(allTesters=>{
+        res.json(allTesters)
+      })
+      .catch(err => {
+        res.json(err);
+      });
+  })
   
 module.exports = router
 
