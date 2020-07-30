@@ -53,6 +53,47 @@ router.post("/api/schedule", ({body}, res) => {
       });
   })
 
+  router.put("/api/schedule/:id", (req, res)=>{
+    const id = req.params.id;
+    console.log(`REQ`)
+    console.log(req.body)
+
+    Schedule.findOneAndUpdate({_id: id}, {totalDuration: req.body.totalDuration})
+    .then(updatedSchedule=>{
+      res.json(updatedSchedule)
+    })
+    .catch(err => {
+      res.json(err);
+    });
+  })
+
+
+  router.delete("/api/schedule/:id", (req, res)=>{
+    const id = req.params.id;
+
+    Schedule.deleteOne({_id: id})
+    .then(updatedSchedule=>{
+      res.json(updatedSchedule)
+    })
+    .catch(err => {
+      res.json(err);
+    });
+  })
+
+    //UPDATE THE TESTER AVAILIBILITY
+    router.put("/api/tester/update/:id", (req, res)=>{
+      const id = req.params.id;
+      const newTime = req.body;
+  
+      Schedule.findOneAndUpdate({_id: id}, {totalDuration: newTime})
+        .then(updatedSchedule=>{
+          res.json(updatedSchedule)
+        })
+        .catch(err => {
+          res.json(err);
+        });
+    })
+
   // GET ONLY ONE SHIFT ACCORDING TO TESTERS AVAILABLE 
   router.get("/api/schedule/:availableTester", (req, res)=>{
     const availableTesters = req.params.availableTester;
