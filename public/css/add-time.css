@@ -1,0 +1,7 @@
+.schedule-block{
+    display: flex;
+}
+
+.time{
+    margin: 10px;
+}

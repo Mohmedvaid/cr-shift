@@ -16,6 +16,13 @@ $(document).ready(function () {
         })
     }
 
+    let deleteTester = function(id){
+        return $.ajax({
+            url: "/api/tester/" + id,
+            method: "DELETE"
+        })
+    }
+
 
 
     //ADD NEW TESTER
@@ -36,10 +43,20 @@ $(document).ready(function () {
         $(`.testers`).empty()
 
         testers.forEach(tester => {
-            const block = `<h2> ${tester.name}</h2>`
+            const block = `<h2 id ="${tester._id}"> ${tester.name}</h2>
+            <button id="${tester._id}" type="button" class=" delete-tester-btn btn btn-secondary">Delete</button>`
             $(`.testers`).append(block)
         });
     }
+
+
+    $(document).on('click', '.delete-tester-btn', function(){
+        console.log(this.id)
+        deleteTester(this.id);
+        displayTesters();
+    })
+
+
     displayTesters();
 
 

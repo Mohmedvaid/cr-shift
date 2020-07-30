@@ -9,6 +9,13 @@ $(document).ready(function(){
         })
     }
 
+    let getSchedule = function(){
+        return $.ajax({
+            url: "/api/schedule",
+            method: "GET"
+        })
+    }
+
     $(`.dropdown-item`).click(function(e){
         e.stopPropagation()
         let totalInputBoxes = $(this).text()
@@ -21,6 +28,28 @@ $(document).ready(function(){
             getAllTimeFromDOM(totalInputBoxes);
         })
     })
+
+    async function displaySchedule(){
+
+        let allSchedule = await getSchedule();
+
+        for (let i = 0; i<allSchedule.length; i++){
+            let time = allSchedule[i].totalDuration.map(function(time){
+               return `<p class="time">${time}</p>`
+            }).join(' ')
+            console.log(time)
+
+            let block= `
+            <div class="schedule-block">
+                <h2>${allSchedule[i].totalTesters}</h2>
+                ${time}
+            </div>`
+
+            $(`.alltime-container`).append(block);
+        }
+
+    }
+    displaySchedule();
             
 
 
@@ -28,13 +57,16 @@ $(document).ready(function(){
         $(`#input-boxes`).empty()
         for (let i = 0; i <totalInputBoxes; i++){
             const block = 
-            `<div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">First and last name</span>
-                    </div>
-                    <input id="Time${i}" type="text" aria-label="Time" class="form-control">
-                    <input id="Meridiem${i}" type="text" aria-label="Meridiem" class="form-control">
-                </div> `;
+            `<form>
+            <div class="form-row">
+              <div class="col">
+                <input type="text" id="start-time-${i}" class="form-control" placeholder="From">
+              </div>
+              <div class="col">
+                <input type="text" id="end-time-${i}" class="form-control" placeholder="To">
+              </div>
+            </div>
+          </form>`;
         
             $(`#input-boxes`).append(block)
         }
@@ -48,7 +80,7 @@ $(document).ready(function(){
             totalDuration:[]
         }
         for (let i =0; i<totalInputBoxes; i++){
-            newSchedule.totalDuration[i]= $(`input#Time${i}`).val() + " " + $(`input#Meridiem${i}`).val()
+            newSchedule.totalDuration[i]= $(`input#start-time-${i}`).val() + "-" + $(`input#end-time-${i}`).val()
 
         }
         console.log(`new schedule`)
@@ -57,6 +89,5 @@ $(document).ready(function(){
         let res = postSchedule(newSchedule);
         console.log(res)
     }
-
 
 })

@@ -107,6 +107,18 @@ router.post("/api/schedule", ({body}, res) => {
         res.json(err);
       });
   })
+
+  router.delete("/api/tester/:id", (req, res)=>{
+    const id = req.params.id;
+
+    Testers.deleteOne({_id: id})
+    .then(updatedTesters=>{
+      res.json(updatedTesters)
+    })
+    .catch(err => {
+      res.json(err);
+    });
+  })
   
 module.exports = router
 
