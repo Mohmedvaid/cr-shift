@@ -34,16 +34,22 @@ $(document).ready(function(){
         })
     }
 
-    $(`.dropdown-item`).click(function(e){
+    $(document).on(`click`, `.dropdown-item`, function(e){
+        console.log(`clicked`)
         e.stopPropagation()
         let totalInputBoxes = $(this).text()
+        console.log(totalInputBoxes)
         displayInputBoxOnDOM(totalInputBoxes);
-        // $(`.dropdown-item`).dropdown('hide')
+
 
         $(`#submit-testers-btn`).click(function(e){
             console.log(`submit clicked`)
             e.stopPropagation();
             getAllTimeFromDOM(totalInputBoxes);
+            $(`.alltime-container`).empty();
+            displaySchedule();
+            $(`#input-boxes`).empty();
+
         })
     })
 
@@ -79,14 +85,6 @@ $(document).ready(function(){
         console.log(allSchedule)
     })
 
-    // function populateAddNewScheduleDDL(allSchedule){
-    //     for(let i = 0; i<allSchedule.length; i++){
-    //         allSchedule[i].map((schedule, index)=>{
-    //             console.log(schedule.totalTesters)
-    //         })
-
-    //     }
-    // }
 
     function getUpdatedTimeFromDOM(totalInputBoxes){
         let totalDuration=[];
@@ -167,14 +165,18 @@ $(document).ready(function(){
 
             $(`.alltime-container`).append(block);
         }
+        $(`.testers-ddl`).empty();
         populateAddNewScheduleDDL();
     }
-    displaySchedule();
 
     function populateAddNewScheduleDDL(){
            const existingShifts= allSchedule.map((schedule, index)=>{
                 return schedule.totalTesters
             })
+            if(existingShifts.length === 0){
+                $(`.testers-ddl`).append(`<button class="dropdown-item" type="button">1</button>`);
+                return;
+            }
 
             for(let i = 1; i<15; i++){
                 for(let j = 0; j<existingShifts.length; j++){
@@ -234,4 +236,6 @@ $(document).ready(function(){
         console.log(res)
     }
 
+
+    displaySchedule();
 })
