@@ -1,0 +1,59 @@
+.container-main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.schedule-container{
+    width: 100%;
+    padding: 20px;
+}
+
+
+.Tester-container{
+    display: flex;
+    width: 100%;
+    padding: 5px;
+    justify-content: center;
+}
+
+.tester-time, .tester-name{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tester-name{
+    white-space: nowrap;
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+    height: 100px;
+    width: 100%;
+    font-size: 25px;
+}
+.tester-time{
+    height: 100px;
+    width: 100%;
+    margin: 0px;
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+    border-right: 0px;
+    border-left: 2px solid black;
+    padding: 20px;
+}
+.remove-btn{
+    height: 100px;
+    width: 90px;
+    border: 2px solid black;
+    background-color: darkturquoise;
+    border-radius: 2px 25px 25px 2px;
+}
+
+
+/* Buttons */
+/* Reset button */
+.reset-btn{
+    width: 300px;
+}
+
+

@@ -48,17 +48,19 @@ $(document).ready(function(){
     })
 
     $(document).on(`click`, `.delete-time-btn`, function(){
-        let deleteTime = deleteSchedule(this.id);
+         deleteSchedule(this.id);
+         console.log(`id`)
+         console.log(this.id)
         $(`.alltime-container`).empty();
         displaySchedule();
 
     })
 
-    $(document).on(`click`, `.update-time-btn`, function(){
+    $(document).on(`click`, `.update-time-btn`,  function(){
         const id = this.id
         $(`.update-container`).empty();
         let totalInputBoxes = editTime(id)
-        $(document).on(`click`, `.update-current-time-btn`, function(){
+        $(document).on(`click`, `.update-current-time-btn`,  function(){
             const updatedSchedule = getUpdatedTimeFromDOM(totalInputBoxes);
             console.log(`updated schedule before posting`);
             console.log(updatedSchedule)
@@ -66,7 +68,8 @@ $(document).ready(function(){
                 totalDuration: updatedSchedule
             }
 
-            updateSchedule( id, obj)
+          let response =  updateSchedule( id, obj);
+          console.log(response)
             $(`.alltime-container`).empty();
             displaySchedule();
 

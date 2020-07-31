@@ -52,7 +52,11 @@ $(document).ready(function () {
         console.log(availableTesters)
         let availableTime = await getTimes(availableTesters.length)
         console.log(availableTime)
-        render(availableTesters, availableTime)
+        if(!availableTime){
+            console.log(`OH NOOOOOOOOOOOOO`)
+        }else{
+            render(availableTesters, availableTime)
+        }
 
      }
 
@@ -64,14 +68,11 @@ $(document).ready(function () {
         display();
    });
 
-   $(`.reset-btn`).click(function(){
-       updateAllTester();
+   $(`.reset-btn`).click(async function(){
+       let updated = await updateAllTester();
        display();
 
    })
-
-
-
 
 
      display();
