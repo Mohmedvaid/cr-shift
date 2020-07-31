@@ -1,7 +1,18 @@
 .schedule-block{
     display: flex;
+    flex-direction: column;
 }
 
 .time{
     margin: 10px;
+}
+.main-buttons{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.delete-time-btn, .update-time-btn{
+    margin: 10px;
+    width: 200px;
 }
