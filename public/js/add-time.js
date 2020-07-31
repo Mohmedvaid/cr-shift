@@ -79,6 +79,15 @@ $(document).ready(function(){
         console.log(allSchedule)
     })
 
+    // function populateAddNewScheduleDDL(allSchedule){
+    //     for(let i = 0; i<allSchedule.length; i++){
+    //         allSchedule[i].map((schedule, index)=>{
+    //             console.log(schedule.totalTesters)
+    //         })
+
+    //     }
+    // }
+
     function getUpdatedTimeFromDOM(totalInputBoxes){
         let totalDuration=[];
 
@@ -122,18 +131,7 @@ $(document).ready(function(){
     async function displaySchedule(){
 
          allSchedule = await getSchedule();
-
-        `<table class="table">
-            <tbody>
-                <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-                </tr>
-               
-            </tbody>
-        </table>`
+         console.log(allSchedule)
 
         for (let i = 0; i<allSchedule.length; i++){
             let time = allSchedule[i].totalDuration.map((time, index)=>{
@@ -147,7 +145,7 @@ $(document).ready(function(){
             }).join(' ')
 
             let block= `
-            <h2>${allSchedule[i].totalTesters}</h2>
+            <p class="testing-schedule"> Schedule for ${allSchedule[i].totalTesters} testers</p>
             <div class="schedule-block">
             <table class="table">
             <thead class="thead-dark">
@@ -169,9 +167,33 @@ $(document).ready(function(){
 
             $(`.alltime-container`).append(block);
         }
-
+        populateAddNewScheduleDDL();
     }
     displaySchedule();
+
+    function populateAddNewScheduleDDL(){
+           const existingShifts= allSchedule.map((schedule, index)=>{
+                return schedule.totalTesters
+            })
+
+            for(let i = 1; i<15; i++){
+                for(let j = 0; j<existingShifts.length; j++){
+
+                    if(i!=existingShifts[j]){
+                        check = true;
+                    }else{
+                        check = false;
+                        break;
+                    }
+                }
+                if(check){
+                    const block = `<button class="dropdown-item" type="button">${i}</button>`
+                    $(`.testers-ddl`).append(block);
+                    check = false;
+                }
+            }
+    }
+    
             
 
 

@@ -1,6 +1,13 @@
+h1{
+    padding: 30px;
+    text-align: center;
+}
 .schedule-block{
     display: flex;
     flex-direction: column;
+    border-bottom-style: solid;
+    border-bottom-color: #484848;
+    margin-bottom: 50px;
 }
 
 .time{
@@ -16,3 +23,11 @@
     margin: 10px;
     width: 200px;
 }
+
+.testing-schedule{
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 2px;
+}
+
+
