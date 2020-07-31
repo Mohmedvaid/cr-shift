@@ -65,25 +65,27 @@ $(document).ready(function(){
     $(document).on(`click`, `.update-time-btn`,  function(){
         const id = this.id
         $(`.update-container`).empty();
-        let totalInputBoxes = editTime(id)
+        let totalInputBoxes = editTime(id);
+        scrollTo(`.update-container`);
+
         $(document).on(`click`, `.update-current-time-btn`,  function(){
             const updatedSchedule = getUpdatedTimeFromDOM(totalInputBoxes);
-            console.log(`updated schedule before posting`);
-            console.log(updatedSchedule)
             const obj = {
                 totalDuration: updatedSchedule
             }
 
           let response =  updateSchedule( id, obj);
-          console.log(response)
             $(`.alltime-container`).empty();
             displaySchedule();
 
         })
-        
-        
-        console.log(allSchedule)
     })
+
+    function scrollTo(element){
+        $([document.documentElement, document.body]).animate({
+            scrollTop: $(element).offset().top
+        }, 1000);
+    }
 
 
     function getUpdatedTimeFromDOM(totalInputBoxes){
@@ -129,7 +131,6 @@ $(document).ready(function(){
     async function displaySchedule(){
 
          allSchedule = await getSchedule();
-         console.log(allSchedule)
 
         for (let i = 0; i<allSchedule.length; i++){
             let time = allSchedule[i].totalDuration.map((time, index)=>{
@@ -203,24 +204,24 @@ $(document).ready(function(){
         $(`#input-boxes`).empty()
         for (let i = 0; i <totalInputBoxes; i++){
             const block = 
-            `<form>
+            `<form class="animate__animated animate__backInRight add-form">
             <div class="form-row">
-              <div class="col">
-                <input type="text" id="start-time-${i}" class="form-control" placeholder="From">
+              <div class="col each-input-box">
+                <input style="text-align: center;" type="text" id="start-time-${i}" class="form-control add-new-input-box" placeholder="From">
               </div>
-              <div class="col">
-                <input type="text" id="end-time-${i}" class="form-control" placeholder="To">
+              <div class="col each-input-box ">
+                <input style="text-align: center;" type="text" id="end-time-${i}" class="form-control add-new-input-box" placeholder="To">
               </div>
             </div>
           </form>`;
         
             $(`#input-boxes`).append(block)
         }
-        $(`#input-boxes`).append(`<button id="submit-testers-btn" type="button" class=" btn btn-secondary">Submit</button>`)
+        $(`#input-boxes`).prepend(`<p class="add-new-text">Add New Schedule for ${totalInputBoxes} Testers!`)
+        $(`#input-boxes`).append(`<button id="submit-testers-btn" type="button" class=" btn btn-secondary animate__animated animate__backInLeft ">Submit</button>`)
     }
 
     function getAllTimeFromDOM(totalInputBoxes){
-        console.log(`clicked`)
         let newSchedule  = {
             totalTesters: totalInputBoxes,
             totalDuration:[]
@@ -229,11 +230,8 @@ $(document).ready(function(){
             newSchedule.totalDuration[i]= $(`input#start-time-${i}`).val() + "-" + $(`input#end-time-${i}`).val()
 
         }
-        console.log(`new schedule`)
-        console.log(newSchedule);
 
         let res = postSchedule(newSchedule);
-        console.log(res)
     }
 
 

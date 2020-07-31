@@ -30,4 +30,48 @@ h1{
     margin-bottom: 2px;
 }
 
+.add-new-schedule-ddl{
+    display: flex;
+    justify-content: flex-end;
+}
+
+#input-boxes{
+    display: flex;
+    flex-direction: column;
+}
+
+#submit-testers-btn{
+    width: 50%;
+    align-self: center;
+    margin: 20px;
+}
+
+#input-boxes > form{
+    margin: 7px;
+}
+
+#input-boxes > form > .form-row > .col{
+    margin: 5px;
+}
+
+.start-time, .end-time{
+    width: 50%;
+}
+
+.add-new-input-box{
+    width:70%;
+}
+.add-form{
+    align-self: center;
+}
+
+.each-input-box{
+    display: flex;
+    justify-content: center;
+}
+
+.add-new-text{
+    text-align: center;
+    font-size: 2rem;
+}
 

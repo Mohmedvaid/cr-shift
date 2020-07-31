@@ -30,23 +30,23 @@ router.get("/api/testers", (req, res) => {
 })
 
 
-//UPDATE THE TESTER AVAILIBILITY
-router.put("/api/tester/update/:id", (req, res) => {
-  const id = req.params.id;
-  const newTime = req.body;
+// //UPDATE THE TESTER AVAILIBILITY
+// router.put("/api/tester/update/:id", (req, res) => {
+//   const id = req.params.id;
+//   const newTime = req.body;
 
-  Schedule.findOneAndUpdate({
-      _id: id
-    }, {
-      totalDuration: newTime
-    })
-    .then(updatedSchedule => {
-      res.json(updatedSchedule)
-    })
-    .catch(err => {
-      res.json(err);
-    });
-})
+//   Schedule.findOneAndUpdate({
+//       _id: id
+//     }, {
+//       totalDuration: newTime
+//     })
+//     .then(updatedSchedule => {
+//       res.json(updatedSchedule)
+//     })
+//     .catch(err => {
+//       res.json(err);
+//     });
+// })
 
 
 // GET TESTERS ACCORDING TO AVAILIBILITY
