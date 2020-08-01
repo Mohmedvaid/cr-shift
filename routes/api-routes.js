@@ -1,7 +1,10 @@
 const router = require("express").Router();
-
 const Testers = require("../models/testers");
 const Schedule = require("../models/schedule")
+const axios = require("axios");
+
+
+
 
 //==============TESTERS==============//
 // ADD TESTERS TO THE DB
@@ -212,5 +215,22 @@ router.delete("/api/schedule/:id", (req, res) => {
       res.json(err);
     });
 })
+
+//=======GIF========//
+// GET GIF
+router.get("/api/gif/:name", async function(req, res) {
+  try{
+    const key = process.env.GIF_API_KEY;
+    const data = await axios.get(`https://api.giphy.com/v1/gifs/random?api_key=${key}&tag=${req.params.name}&lang=eng&limit=1`);
+    res.json(data.data);
+
+  }
+  catch(err){
+    res.json(err)
+  }
+
+})
+
+
 
 module.exports = router

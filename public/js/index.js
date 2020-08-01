@@ -16,7 +16,7 @@ $(document).ready(function () {
         })
     }
 
-    let updateTester= function(testerId){
+    let updateTester = function(testerId){
         return  $.ajax({
             url: "/api/tester/update/" + testerId,
             method: "PUT"
@@ -28,6 +28,13 @@ $(document).ready(function () {
             url: "/api/updateall",
             method: "PUT"
         })
+     }
+
+     let getGIF = function(gifName){
+         return $.ajax({
+             url: "/api/gif/" + gifName,
+             method: "GET"
+         })
      }
 
 
@@ -53,11 +60,15 @@ $(document).ready(function () {
         let availableTime = await getTimes(availableTesters.length)
         console.log(availableTime)
         if(!availableTime){
-            console.log(`OH NOOOOOOOOOOOOO`)
+            let gifData = await getGIF(`ohno`)
+            console.log(gifData.data.images.original.url)
         }else{
             render(availableTesters, availableTime)
         }
-
+     }
+    
+     function showError(gif, message){
+        let block = ``
      }
 
      //REMOVE AND UPDATE DOM   

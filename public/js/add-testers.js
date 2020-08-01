@@ -80,10 +80,20 @@ $(document).ready(function () {
         console.log(testers)
         $(`.testers`).empty()
 
+        const animationArr = [`animate__backInDown`, `animate__backInUp`,`animate__backInRight`, `animate__backInLeft`, `animate__bounceInDown`, `animate__bounceInUp`, `animate__bounceInRight`, `animate__bounceInLeft`, `animate__fadeInDownBig`, `animate__fadeInUpBig`, `animate__fadeInRightBig`, `animate__fadeInLeftBig`, `animate__lightSpeedInRight`, `animate__lightSpeedInLeft`, `animate__lightSpeedInUp`, `animate__lightSpeedInDown`, `animate__rotateInDownLeft`, `animate__rotateInDownRight`, `animate__rotateInUpLeft`, `animate__rotateInUpRight`, `animate__jackInTheBox`, `animate__rollIn`, `animate__zoomInDown`, `animate__zoomInUp`, `animate__zoomInRight`, `animate__zoomInLeft`, `animate__slideInDown`, `animate__slideInUp`, `animate__slideInRight`, `animate__slideInLeft`, `animate__flip`, `animate__flipInX`, `animate__flipInY` ];
+
+        const randomNumForAnimationAdd= Math.floor(Math.random() * 32);  
+        const randomClass = animationArr[randomNumForAnimationAdd];
+
         testers.forEach(tester => {
-            const block = `<h2 id ="${tester._id}"> ${tester.name}</h2>
+            const block = `
+            <div class="card text-center animate__animated ${randomClass}" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title tester-name" id ="${tester._id}">${tester.name}</h5>
             <button id="${tester._id}" type="button" class=" delete-tester-btn btn btn-secondary">Delete</button>
-            <button id="${tester._id}" type="button" class="update-name-btn btn btn-success">Update</button>`
+            <button id="${tester._id}" type="button" class="update-name-btn btn btn-success">Update</button>
+        </div>
+        </div>`
             $(`.testers`).append(block)
         });
     }
