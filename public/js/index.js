@@ -61,14 +61,24 @@ $(document).ready(function () {
         console.log(availableTime)
         if(!availableTime){
             let gifData = await getGIF(`ohno`)
-            console.log(gifData.data.images.original.url)
+            let gifURL = gifData.data.images.original.url;
+            let message = `Oh no! Looks like availibility of testers does not match available time!`
+            let block = showError(gifURL, message);
+            $(`.container-main`).empty().append(block);
         }else{
             render(availableTesters, availableTime)
         }
      }
     
-     function showError(gif, message){
-        let block = ``
+     function showError(img, message){
+        let block = `
+        <div class="card" style="width: 18rem;">
+        <img src="${img}" class="card-img-top" alt="Error">
+        <div class="card-body">
+            <p class="card-text">${message}</p>
+        </div>
+        </div>`
+        return block;
      }
 
      //REMOVE AND UPDATE DOM   
