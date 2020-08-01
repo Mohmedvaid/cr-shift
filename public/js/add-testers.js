@@ -48,8 +48,9 @@ $(document).ready(function () {
     })
 
     $(document).on(`click`, `.update-name-btn`, function(){
+        $(`.update-name`).empty();
         const id = this.id
-        const testerName = $(`h2#${id}`).text();
+        const testerName = $(`h5#${id}`).text();
         editName(testerName);
         $(document).on(`click`,`.send-new-name`, function(){
             const newName = $(`#newName`).val();
@@ -63,9 +64,9 @@ $(document).ready(function () {
     })
 
     function editName(newName){
-        const block = `<form>
+        const block = `<form class="update-name-form">
         <div class="form-group">
-          <label for="exampleInputEmail1">Name</label>
+          <label for="exampleInputEmail1">Update ${newName}</label>
           <input id="newName" value="${newName}" class="form-control"  aria-describedby="emailHelp">
         </div>
         <button type="submit" class="send-new-name btn btn-primary">Submit</button>
@@ -90,8 +91,10 @@ $(document).ready(function () {
             <div class="card text-center animate__animated ${randomClass}" style="width: 18rem;">
         <div class="card-body">
             <h5 class="card-title tester-name" id ="${tester._id}">${tester.name}</h5>
-            <button id="${tester._id}" type="button" class=" delete-tester-btn btn btn-secondary">Delete</button>
+            <div class="card-btns">
+            <button id="${tester._id}" type="button" class=" delete-tester-btn btn btn-danger">Delete</button>
             <button id="${tester._id}" type="button" class="update-name-btn btn btn-success">Update</button>
+            </div>
         </div>
         </div>`
             $(`.testers`).append(block)
