@@ -64,7 +64,7 @@ $(document).ready(function () {
             let gifURL = gifData.data.images.original.url;
             let message = `Oh no! Looks like availibility of testers does not match available time!`
             let block = showError(gifURL, message);
-            $(`.container-main`).empty().append(block);
+            $(`.container-main`).append(block);
         }else{
             render(availableTesters, availableTime)
         }
@@ -72,7 +72,7 @@ $(document).ready(function () {
     
      function showError(img, message){
         let block = `
-        <div class="card" style="width: 18rem;">
+        <div class="card error-card" style="width: 18rem;">
         <img src="${img}" class="card-img-top" alt="Error">
         <div class="card-body">
             <p class="card-text">${message}</p>
@@ -91,6 +91,7 @@ $(document).ready(function () {
 
    $(`.reset-btn`).click(async function(){
        let updated = await updateAllTester();
+       $(`.error-card`).remove();
        display();
 
    })
