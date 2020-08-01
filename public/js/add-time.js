@@ -64,6 +64,7 @@ $(document).ready(function(){
 
     $(document).on(`click`, `.update-time-btn`,  function(){
         const id = this.id
+        const clickedTime = 
         $(`.update-container`).empty();
         let totalInputBoxes = editTime(id);
         scrollTo(`.update-container`);
@@ -77,6 +78,11 @@ $(document).ready(function(){
           let response =  updateSchedule( id, obj);
             $(`.alltime-container`).empty();
             displaySchedule();
+
+        });
+
+        $(document).on(`click`, `.cancel-update-time-btn`,  function(){
+            $(`.update-container`).empty().removeClass(`grey-background`);
 
         })
     })
@@ -107,20 +113,23 @@ $(document).ready(function(){
                     const fromTime = mainTime[0];
                     const toTime = mainTime[1];
                     const block = `    
-                    <form>
+                    <form class = "update-time-form">
                         <div class="form-row">
-                        <div class="col">
+                        <div class="col time-update">
                             <input value="${fromTime}" type="text" id="start-time-${index}" class="form-control" placeholder="From">
                         </div>
-                        <div class="col">
+                        <div class="col time-update">
                             <input value="${toTime}" type="text" id="end-time-${index}" class="form-control" placeholder="To">
                         </div>
                         </div>
                     </form>`
                     $(`.update-container`).append(block)
-                    
                 })
+
+                $(`.update-container`).prepend(`<p class="update-time-para">Update Time For ${allSchedule[i].totalTesters} Testers!</p>`);
                 $(`.update-container`).append(`<button type="button" class="update-current-time-btn btn btn-warning">Update</button>`)
+                $(`.update-container`).append(`<button type="button" class="cancel-update-time-btn btn btn-warning">Cancel</button>`)
+                $(`.update-container`).addClass(`grey-background`);
                 
                 return allSchedule[i].totalTesters;
             }

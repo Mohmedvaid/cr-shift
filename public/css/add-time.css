@@ -75,3 +75,26 @@ h1{
     font-size: 2rem;
 }
 
+.update-container{
+    display: grid;
+    margin: 20px;
+    padding: 10px;
+}
+
+.update-current-time-btn{
+    width: 50%;
+    place-self: center;
+}
+
+.time-update{
+    margin: 10px;
+}
+
+.update-time-para{
+    text-align: center;
+    font-size: 2.4rem
+}
+
+.grey-background{
+    background-color: rgb(232 232 232);
+}
