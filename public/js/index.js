@@ -45,9 +45,9 @@ $(document).ready(function () {
             let totalTimeOfTester = availableTime.totalDuration[i].split("-")
             let fromTime = totalTimeOfTester[0].toUpperCase();
             let toTime = totalTimeOfTester[1].toUpperCase();
-            isShiftNow(fromTime, toTime, currentTime);
+            let bool = await isShiftNow(fromTime, toTime);
+            // console.log(`bool = ${bool}`)
 
-            console.log(fromTime+" "+toTime)
             const block = ` <div class="Tester-container">
             <div class="tester-name" id="${availableTesters[i]._id}">${availableTesters[i].name}</div>
             <div class="tester-time">${availableTime.totalDuration[i]}</div>
@@ -58,10 +58,36 @@ $(document).ready(function () {
         }
     }
 
-    function isShiftNow(fromTime, toTime, currentTime){
-        let fromHour = fromTime.split(" ");
-         fromHour = fromHour[0].split(":");
-        console.log(fromHour[0]);
+    function isShiftNow(fromTime, toTime) {
+
+        let fromNewTime = converTo24Time(fromTime);
+        let toNewTime = converTo24Time(toTime);
+        let currentTime = moment()
+
+        let format = 'HH:mm'
+
+
+        let beforeTime = moment(`${toNewTime}`, format);
+        let afterTime = moment(`${fromNewTime}`, format);
+
+
+        if (currentTime.isBetween(afterTime, beforeTime)) {
+
+            return true
+
+        } else {
+
+            return false;
+
+        }
+
+
+
+    }
+
+    function converTo24Time(timeString) {
+        let newTime = moment(`${timeString}`, ["h:mm A"]).format("HH:mm");
+        return newTime;
     }
 
     //GET AVAILABLE TESTERS AND TIME THEN RENDER USING 'render' FUNCTION
@@ -93,9 +119,10 @@ $(document).ready(function () {
     }
 
     //FUNCTION RETURNS CURRECT TIME USING MOMENT.JS
-    async function getCurrentTime(){
-        let momentNow = await moment().format('hh:mm A');
-        console.log(momentNow)
+    async function getCurrentTime() {
+        let momentNow = await moment().format("HH:mm");
+        console.log(`Time now = ${momentNow}`)
+        return momentNow
     }
 
 
