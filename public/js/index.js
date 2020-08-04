@@ -42,13 +42,19 @@ $(document).ready(function () {
         let currentTime = await getCurrentTime();
 
         for (i = 0; i < availableTesters.length; i++) {
+            let currentClass;
             let totalTimeOfTester = availableTime.totalDuration[i].split("-")
             let fromTime = totalTimeOfTester[0].toUpperCase();
             let toTime = totalTimeOfTester[1].toUpperCase();
             let bool = await isShiftNow(fromTime, toTime);
             // console.log(`bool = ${bool}`)
+            if(bool){
+                currentClass =`light-red-bg`
+            }else{
+                currentClass =`normal`
+            }
 
-            const block = ` <div class="Tester-container">
+            const block = ` <div class="Tester-container ${currentClass}">
             <div class="tester-name" id="${availableTesters[i]._id}">${availableTesters[i].name}</div>
             <div class="tester-time">${availableTime.totalDuration[i]}</div>
             <button id="${availableTesters[i]._id}" type="button" class="remove-tester-btn remove-btn btn btn-danger">Absent</button>
