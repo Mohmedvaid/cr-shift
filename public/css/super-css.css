@@ -1,9 +1,14 @@
-nav{
-    background: linear-gradient(262deg, #ff2a2a, #2d1b1b);
+nav {
+  background: linear-gradient(262deg, #ff2a2a, #2d1b1b);
+}
+
+.navbar {
+  padding-left: 4%;
+  padding-right: 4%;
 }
 
 
-  .navbar-dark .navbar-toggler {
-    border-color: rgb(0, 0, 0);
-    border-color: rgb(0, 0, 0);
+.navbar-dark .navbar-toggler {
+  border-color: rgb(0, 0, 0);
+  border-color: rgb(0, 0, 0);
 }

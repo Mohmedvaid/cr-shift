@@ -9,21 +9,21 @@ $(document).ready(function () {
         });
     }
 
-    let getTesters =  function() {
-        return  $.ajax({
+    let getTesters = function () {
+        return $.ajax({
             url: "/api/testers",
             method: "GET"
         })
     }
 
-    let deleteTester = function(id){
+    let deleteTester = function (id) {
         return $.ajax({
             url: "/api/tester/" + id,
             method: "DELETE"
         })
     }
 
-    let updateTester = function(id, newName){
+    let updateTester = function (id, newName) {
         console.log(`NEW NAME`)
         console.log(newName)
         return $.ajax({
@@ -34,36 +34,8 @@ $(document).ready(function () {
 
     }
 
-
-
-    //ADD NEW TESTER
-    $(`#add-tester-btn`).click(function(){
-        console.log(`clicked`);
-        let newTester = {
-            name: $(`#add-tester-input`).val(),
-            available: true
-        }
-        addTesters(newTester);
-        displayTesters();
-    })
-
-    $(document).on(`click`, `.update-name-btn`, function(){
-        $(`.update-name`).empty();
-        const id = this.id
-        const testerName = $(`h5#${id}`).text();
-        editName(testerName);
-        $(document).on(`click`,`.send-new-name`, function(){
-            const newName = $(`#newName`).val();
-            console.log("NEW NAME=="+newName)
-            const obj = {
-                name: newName
-            }
-            updateTester(id, obj);
-            displayTesters();
-        })
-    })
-
-    function editName(newName){
+    //DISPLA INPUT BOXES TO UPDATE THE TESTERS NAME
+    function displyUpdateNameInputBoxes(newName) {
         const block = `<form class="update-name-form">
         <div class="form-group">
           <label for="exampleInputEmail1">Update ${newName}</label>
@@ -71,19 +43,19 @@ $(document).ready(function () {
         </div>
         <button type="submit" class="send-new-name btn btn-primary">Submit</button>
       </form>`
-      $(`.update-name`).append(block);
+        $(`.update-name`).append(block);
     }
 
 
     //GET AND DISPLAY TESTERS
-    async function displayTesters(){
+    async function displayTesters() {
         let testers = await getTesters()
         console.log(testers)
         $(`.testers`).empty()
 
-        const animationArr = [`animate__backInDown`, `animate__backInUp`,`animate__backInRight`, `animate__backInLeft`, `animate__bounceInDown`, `animate__bounceInUp`, `animate__bounceInRight`, `animate__bounceInLeft`, `animate__fadeInDownBig`, `animate__fadeInUpBig`, `animate__fadeInRightBig`, `animate__fadeInLeftBig`, `animate__lightSpeedInRight`, `animate__lightSpeedInLeft`, `animate__lightSpeedInUp`, `animate__lightSpeedInDown`, `animate__rotateInDownLeft`, `animate__rotateInDownRight`, `animate__rotateInUpLeft`, `animate__rotateInUpRight`, `animate__jackInTheBox`, `animate__rollIn`, `animate__zoomInDown`, `animate__zoomInUp`, `animate__zoomInRight`, `animate__zoomInLeft`, `animate__slideInDown`, `animate__slideInUp`, `animate__slideInRight`, `animate__slideInLeft`, `animate__flip`, `animate__flipInX`, `animate__flipInY` ];
+        const animationArr = [`animate__backInDown`, `animate__backInUp`, `animate__backInRight`, `animate__backInLeft`, `animate__bounceInDown`, `animate__bounceInUp`, `animate__bounceInRight`, `animate__bounceInLeft`, `animate__fadeInDownBig`, `animate__fadeInUpBig`, `animate__fadeInRightBig`, `animate__fadeInLeftBig`, `animate__lightSpeedInRight`, `animate__lightSpeedInLeft`, `animate__lightSpeedInUp`, `animate__lightSpeedInDown`, `animate__rotateInDownLeft`, `animate__rotateInDownRight`, `animate__rotateInUpLeft`, `animate__rotateInUpRight`, `animate__jackInTheBox`, `animate__rollIn`, `animate__zoomInDown`, `animate__zoomInUp`, `animate__zoomInRight`, `animate__zoomInLeft`, `animate__slideInDown`, `animate__slideInUp`, `animate__slideInRight`, `animate__slideInLeft`, `animate__flip`, `animate__flipInX`, `animate__flipInY`];
 
-        const randomNumForAnimationAdd= Math.floor(Math.random() * 32);  
+        const randomNumForAnimationAdd = Math.floor(Math.random() * 32);
         const randomClass = animationArr[randomNumForAnimationAdd];
 
         testers.forEach(tester => {
@@ -101,8 +73,35 @@ $(document).ready(function () {
         });
     }
 
+    //ADD NEW TESTER
+    $(`#add-tester-btn`).click(function () {
+        console.log(`clicked`);
+        let newTester = {
+            name: $(`#add-tester-input`).val(),
+            available: true
+        }
+        addTesters(newTester);
+        displayTesters();
+    })
 
-    $(document).on('click', '.delete-tester-btn', function(){
+    $(document).on(`click`, `.update-name-btn`, function () {
+        $(`.update-name`).empty();
+        const id = this.id
+        const testerName = $(`h5#${id}`).text();
+        displyUpdateNameInputBoxes(testerName);
+        $(document).on(`click`, `.send-new-name`, function () {
+            const newName = $(`#newName`).val();
+            console.log("NEW NAME==" + newName)
+            const obj = {
+                name: newName
+            }
+            updateTester(id, obj);
+            displayTesters();
+        })
+    })
+
+
+    $(document).on('click', '.delete-tester-btn', function () {
         console.log(this.id)
         deleteTester(this.id);
         displayTesters();

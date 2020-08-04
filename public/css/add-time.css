@@ -32,7 +32,7 @@ h1{
 
 .add-new-schedule-ddl{
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
 }
 
 #input-boxes{
@@ -84,6 +84,13 @@ h1{
 .update-current-time-btn{
     width: 50%;
     place-self: center;
+    margin: 10px;
+}
+
+.cancel-update-time-btn{
+    width: 50%;
+    place-self: center;
+    margin: 10px;
 }
 
 .time-update{
@@ -98,3 +105,8 @@ h1{
 .grey-background{
     background-color: rgb(232 232 232);
 }
+
+.add-schedule-ddl-btn{
+    margin: 5px;
+}
+

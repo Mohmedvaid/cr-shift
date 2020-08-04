@@ -125,10 +125,10 @@ $(document).ready(function(){
                     </form>`
                     $(`.update-container`).append(block)
                 })
-
-                $(`.update-container`).prepend(`<p class="update-time-para">Update Time For ${allSchedule[i].totalTesters} Testers!</p>`);
-                $(`.update-container`).append(`<button type="button" class="update-current-time-btn btn btn-warning">Update</button>`)
-                $(`.update-container`).append(`<button type="button" class="cancel-update-time-btn btn btn-warning">Cancel</button>`)
+                let TesterText = (allSchedule[i].totalDuration.length == 1 ) ? 'Tester' : 'Testers';
+                $(`.update-container`).prepend(`<p class="update-time-para">Update Time For ${allSchedule[i].totalTesters} ${TesterText}!</p>`);
+                $(`.update-container`).append(`<button type="button" class="update-current-time-btn btn btn-success">Update</button>`)
+                $(`.update-container`).append(`<button type="button" class="cancel-update-time-btn btn btn-danger">Cancel</button>`)
                 $(`.update-container`).addClass(`grey-background`);
                 
                 return allSchedule[i].totalTesters;
@@ -136,12 +136,15 @@ $(document).ready(function(){
         }
     }
 
+    
+
 
     async function displaySchedule(){
 
          allSchedule = await getSchedule();
 
         for (let i = 0; i<allSchedule.length; i++){
+            let TesterText = (allSchedule[i].totalDuration.length == 1 ) ? 'Tester' : 'Testers';
             let time = allSchedule[i].totalDuration.map((time, index)=>{
                 const totalTime = time.split(`-`)
                return `                
@@ -153,7 +156,7 @@ $(document).ready(function(){
             }).join(' ')
 
             let block= `
-            <p class="testing-schedule"> Schedule for ${allSchedule[i].totalTesters} testers</p>
+            <p class="testing-schedule"> Schedule for ${allSchedule[i].totalTesters} ${TesterText}</p>
             <div class="schedule-block">
             <table class="table">
             <thead class="thead-dark">
