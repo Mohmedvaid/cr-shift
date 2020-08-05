@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300&display=swap');
+
+.lead{
+    text-align: center;
+}
+
 .container-main {
     display: flex;
     flex-direction: column;
@@ -23,6 +29,7 @@
     width: 100%;
     padding: 5px;
     justify-content: center;
+    border-radius: 0px 20px 20px 0px;
 }
 
 .tester-time,
@@ -30,6 +37,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 25px;
 }
 
 .tester-name {
@@ -38,7 +47,7 @@
     border-bottom: 2px solid black;
     height: 100px;
     width: 100%;
-    font-size: 25px;
+
 }
 
 .tester-time {
@@ -62,7 +71,7 @@
 }
 
 .light-red-bg{
-    background-color: #ffa7a7;
+    background-color: #ffcfcf;
 }
 
 

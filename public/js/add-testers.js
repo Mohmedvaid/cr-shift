@@ -85,6 +85,7 @@ $(document).ready(function () {
         let checkInput = validateInput(newTester.name);
         if(checkInput){
             addTesters(newTester);
+            $(`#add-tester-input`).val("")
             displayTesters();
         }else{
              let errBlock = `<p class="error-message animate__animated animate__rubberBand">Please enter a value!</p>`
