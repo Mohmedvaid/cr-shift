@@ -80,9 +80,28 @@ $(document).ready(function () {
             name: $(`#add-tester-input`).val(),
             available: true
         }
-        addTesters(newTester);
-        displayTesters();
+        console.log(`newTester`)
+        console.log(newTester)
+        let checkInput = validateInput(newTester.name);
+        if(checkInput){
+            addTesters(newTester);
+            displayTesters();
+        }else{
+             let errBlock = `<p class="error-message animate__animated animate__rubberBand">Please enter a value!</p>`
+             $(".add-tester-input-box").append(errBlock);
+             setTimeout(function() { $(".error-message").remove(); }, 3000);
+    
+        }
     })
+
+    function validateInput(val){
+        if(val ===""|| val === null){
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
 
     $(document).on(`click`, `.update-name-btn`, function () {
         $(`.update-name`).empty();

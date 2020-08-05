@@ -1,6 +1,6 @@
-h1 {
+/* h1 {
     text-align: center;
-}
+} */
 
 .card {
     margin: 20px;
@@ -29,23 +29,64 @@ h1 {
 }
 
 .input-group {
-    width: 40%;
+    width: 33%;
     margin: auto;
 }
 
-.card-btns{
+.card-btns {
     display: flex;
     justify-content: center;
 }
 
-.update-name{
+.update-name {
     display: flex;
     flex-direction: column;
-align-items: center;
+    align-items: center;
 }
 
-.update-name-form{
+.update-name-form {
     display: flex;
     flex-direction: column;
     width: 40%;
+}
+#add-tester-input::placeholder{
+    letter-spacing: 10px;
+    text-align: center;
+}
+
+
+#add-tester-btn {
+
+    color: #fff;
+    cursor: pointer;
+    text-align: center;
+    border: none;
+    background-size: 300% 100%;
+
+    moz-transition: all .4s ease-in-out;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+
+
+    background-image: linear-gradient(to right, #eb3941, #f15e64, #e14e53, #e2373f);
+    box-shadow: 0 5px 15px rgba(242, 97, 103, .4);
+}
+
+#add-tester-btn:hover {
+    color: white;
+    background-position: 100% 0;
+    moz-transition: all .4s ease-in-out;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+}
+
+#add-tester-btn:focus {
+    outline: none;
+}
+.error-message{
+    margin: auto;
+    margin-top: 20px;
+    color: red;
 }

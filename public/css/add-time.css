@@ -1,7 +1,5 @@
-h1{
-    padding: 30px;
-    text-align: center;
-}
+@import url('https://fonts.googleapis.com/css2?family=Jura&display=swap');
+
 .schedule-block{
     display: flex;
     flex-direction: column;
@@ -28,6 +26,8 @@ h1{
     text-align: center;
     font-size: 2rem;
     margin-bottom: 2px;
+    font-family: 'Jura', sans-serif;
+    background-color: #e4e4e4;
 }
 
 .add-new-schedule-ddl{
@@ -38,9 +38,12 @@ h1{
 #input-boxes{
     display: flex;
     flex-direction: column;
+    background: lightgray;
+    margin: 20px 50px;
+    border-radius: 12px;
 }
 
-#submit-testers-btn{
+#submit-testers-btn,#clear-input-boxes {
     width: 50%;
     align-self: center;
     margin: 20px;
@@ -108,5 +111,21 @@ h1{
 
 .add-schedule-ddl-btn{
     margin: 5px;
+    background-color: #ff7474;
+}
+#dropdownMenu2:hover{
+    background-color: #bf5252;
+}
+#dropdownMenu2:active{
+    background-color: #bf5252;
+}
+
+#dropdownMenu2:focus{
+    background-color: #bf5252;
+}
+
+.add-form-btns{
+    display: flex;
+    align-self: center;
 }
 

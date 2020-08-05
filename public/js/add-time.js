@@ -35,15 +35,12 @@ $(document).ready(function(){
     }
 
     $(document).on(`click`, `.dropdown-item`, function(e){
-        console.log(`clicked`)
         e.stopPropagation()
         let totalInputBoxes = $(this).text()
-        console.log(totalInputBoxes)
         displayInputBoxOnDOM(totalInputBoxes);
 
 
         $(`#submit-testers-btn`).click(function(e){
-            console.log(`submit clicked`)
             e.stopPropagation();
             getAllTimeFromDOM(totalInputBoxes);
             $(`.alltime-container`).empty();
@@ -85,6 +82,11 @@ $(document).ready(function(){
             $(`.update-container`).empty().removeClass(`grey-background`);
 
         })
+    })
+
+    $(document).on(`click`, `#clear-input-boxes`, function(){
+        console.log(`clicked!!`)
+        $(`#input-boxes`).empty();
     })
 
     function scrollTo(element){
@@ -214,6 +216,11 @@ $(document).ready(function(){
 
     function displayInputBoxOnDOM(totalInputBoxes){
         $(`#input-boxes`).empty()
+        let buttonsBlock=`
+        <div class="add-form-btns animate__animated animate__backInLeft">
+        <button id="submit-testers-btn" type="button" class=" btn btn-success ">Submit</button>
+        <button id="clear-input-boxes" type="button" class=" btn btn-danger ">Cancel</button>
+        </div>`
         for (let i = 0; i <totalInputBoxes; i++){
             const block = 
             `<form class="animate__animated animate__backInRight add-form">
@@ -230,7 +237,7 @@ $(document).ready(function(){
             $(`#input-boxes`).append(block)
         }
         $(`#input-boxes`).prepend(`<p class="add-new-text">Add New Schedule for ${totalInputBoxes} Testers!`)
-        $(`#input-boxes`).append(`<button id="submit-testers-btn" type="button" class=" btn btn-secondary animate__animated animate__backInLeft ">Submit</button>`)
+        $(`#input-boxes`).append(buttonsBlock)
     }
 
     function getAllTimeFromDOM(totalInputBoxes){

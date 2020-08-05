@@ -5,8 +5,16 @@
 }
 
 .schedule-container {
+    display: grid;
     width: 100%;
     padding: 20px;
+}
+
+.headings{
+    display: flex;
+    justify-content: space-around;
+    padding-right: 80px;
+    font-size: 2rem;
 }
 
 
@@ -95,4 +103,8 @@
 
 .reset-btn:focus {
     outline: none;
+}
+
+h1{
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
 }

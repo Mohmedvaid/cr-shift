@@ -62,6 +62,8 @@ $(document).ready(function () {
             `
             $(`.schedule-container`).append(block)
         }
+        let headings = `<div class="headings"><p>Name</p><p>Time</p></div>`
+        $(`.schedule-container`).prepend(headings)
     }
 
     function isShiftNow(fromTime, toTime) {
