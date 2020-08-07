@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300&display=swap');
 
-.lead{
+.lead {
     text-align: center;
 }
 
@@ -11,12 +11,11 @@
 }
 
 .schedule-container {
-    display: grid;
     width: 100%;
     padding: 20px;
 }
 
-.headings{
+.headings {
     display: flex;
     justify-content: space-around;
     padding-right: 80px;
@@ -67,10 +66,10 @@
     border: 2px solid black;
     background-color: #002f56;
     border-radius: 2px 25px 25px 2px;
-    
+
 }
 
-.light-red-bg{
+.light-red-bg {
     background-color: #ffcfcf;
 }
 
@@ -114,6 +113,30 @@
     outline: none;
 }
 
-h1{
-    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+h1 {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+@media only screen and (max-width: 600px) {
+    .headings{
+        padding: 0;
+    }
+    .Tester-container{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-row-gap: 6px;
+        margin-bottom: 20px;
+    }
+
+    .remove-btn {
+        grid-column: span 2;
+        place-self: center;
+        border-radius: 8px;
+        width: 60%;
+        height: 100%;
+        align-self: center;
+        margin: 12px;
+        margin: 10px;
+        height: 100%;
+    }
 }

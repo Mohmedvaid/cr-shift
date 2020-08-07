@@ -30,3 +30,9 @@ h1 {
   padding: 30px;
   text-align: center;
 }
+
+@media only screen and (max-width: 600px) {
+  h1 {
+    font-size: 3rem!important;
+  }
+}
