@@ -1,13 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300&display=swap');
 
-.lead {
-    text-align: center;
+.jumbotron{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
-
+.date-time{
+    font-size: 2rem;
+    font-family: 'Josefin Sans', sans-serif;
+}
 .container-main {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-bottom: 50px;
 }
 
 .schedule-container {
@@ -118,13 +124,14 @@ h1 {
 }
 
 @media only screen and (max-width: 600px) {
-    .headings{
+    .headings {
         padding: 0;
     }
-    .Tester-container{
+
+    .Tester-container {
         display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-row-gap: 6px;
+        grid-template-columns: 1fr 2fr;
+        /* grid-row-gap: 6px; */
         margin-bottom: 20px;
     }
 
@@ -138,5 +145,17 @@ h1 {
         margin: 12px;
         margin: 10px;
         height: 100%;
+        border-radius: 2px 2px 30px 30px;
+        grid-column: 2;
+        width: 100%;
+    }
+
+    .tester-time,
+    .tester-name {
+        padding: 2px;
+        font-size: 1.3rem;
+    }
+    .tester-time{
+        border-right: 2px solid black;
     }
 }

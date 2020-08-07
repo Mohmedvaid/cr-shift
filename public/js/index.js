@@ -39,7 +39,6 @@ $(document).ready(function () {
 
     //DISPLAY TESTERS AND TIME!
     async function render(availableTesters, availableTime) {
-        let currentTime = await getCurrentTime();
 
         for (i = 0; i < availableTesters.length; i++) {
             let currentClass;
@@ -47,11 +46,10 @@ $(document).ready(function () {
             let fromTime = totalTimeOfTester[0].toUpperCase();
             let toTime = totalTimeOfTester[1].toUpperCase();
             let bool = await isShiftNow(fromTime, toTime);
-            // console.log(`bool = ${bool}`)
-            if(bool){
-                currentClass =`light-red-bg`
-            }else{
-                currentClass =`normal`
+            if (bool) {
+                currentClass = `light-red-bg`
+            } else {
+                currentClass = `normal`
             }
 
             const block = ` <div class="Tester-container ${currentClass}">
@@ -132,6 +130,13 @@ $(document).ready(function () {
         console.log(`Time now = ${momentNow}`)
         return momentNow
     }
+
+    let rederDateTime;
+    (rederDateTime = function () {
+        $(`.date-time`).text(moment().format('MMMM Do , h:mm:ss a'));
+    })();
+    setInterval(rederDateTime, 1000);
+
 
 
     //CLICK EVENT LISTNER THAT UPDATED THE AVAILIBILITY OF TESTERS.  

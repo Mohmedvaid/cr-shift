@@ -22,6 +22,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-bottom: 50px;
 }
 
 #add-tester-input {
@@ -29,7 +30,7 @@
 }
 
 .input-group {
-    width: 33%;
+    width: 45%;
     margin: auto;
 }
 
@@ -90,3 +91,33 @@
     margin-top: 20px;
     color: red;
 }
+
+.update-name-form{
+    margin: 50px;
+}
+.send-new-name, .cancel-update{
+    margin: 10px;
+    color: white;
+}
+.send-new-name{
+    background-color: #5dc35d;
+}
+.cancel-update{
+    background-color: #ff6b6b;
+}
+
+@media only screen and (max-width: 600px) {
+    .add-tester-input-box {
+      display: flex;
+      flex-direction: column;
+    }
+    #add-tester-input{
+        width: 100%;
+    }
+    .input-group-append{
+        display: flex;
+        justify-content: center;
+        margin: 10px;
+
+    }
+  }

@@ -41,10 +41,15 @@ $(document).ready(function () {
           <label for="exampleInputEmail1">Update ${newName}</label>
           <input id="newName" value="${newName}" class="form-control"  aria-describedby="emailHelp">
         </div>
-        <button type="submit" class="send-new-name btn btn-primary">Submit</button>
+        <button type="submit" class="send-new-name btn ">Update</button>
+        <button type="submit" class="cancel-update btn ">Cancel</button>
       </form>`
         $(`.update-name`).append(block);
     }
+
+    $(document).on(`click`, `.cancel-update`, function(){
+        $(`.update-name`).empty();
+    })
 
 
     //GET AND DISPLAY TESTERS
@@ -95,6 +100,12 @@ $(document).ready(function () {
         }
     })
 
+    function scrollTo(element){
+        $([document.documentElement, document.body]).animate({
+            scrollTop: $(element).offset().top
+        }, 1000);
+    }
+
     function validateInput(val){
         if(val ===""|| val === null){
             return false;
@@ -109,6 +120,7 @@ $(document).ready(function () {
         const id = this.id
         const testerName = $(`h5#${id}`).text();
         displyUpdateNameInputBoxes(testerName);
+        scrollTo(`.update-name`)
         $(document).on(`click`, `.send-new-name`, function () {
             const newName = $(`#newName`).val();
             console.log("NEW NAME==" + newName)
