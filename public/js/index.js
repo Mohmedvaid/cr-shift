@@ -124,18 +124,12 @@ $(document).ready(function () {
         return block;
     }
 
-    //FUNCTION RETURNS CURRECT TIME USING MOMENT.JS
-    async function getCurrentTime() {
-        let momentNow = await moment().format("HH:mm");
-        console.log(`Time now = ${momentNow}`)
-        return momentNow
-    }
-
     let rederDateTime;
     (rederDateTime = function () {
         $(`.date-time`).text(moment().format('MMMM Do , h:mm:ss a'));
     })();
     setInterval(rederDateTime, 1000);
+
 
 
 
