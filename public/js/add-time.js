@@ -42,11 +42,21 @@ $(document).ready(function () {
 
         $(`#submit-testers-btn`).click(function (e) {
             e.stopPropagation();
-            getAllTimeFromDOM(totalInputBoxes);
+            let isError = getAllTimeFromDOM(totalInputBoxes);
+            if (isError === `field empty`) {
 
-            $(`.alltime-container`).empty();
-            displaySchedule();
-            $(`#input-boxes`).empty();
+                $(`.error-message`).remove();
+                let errBlock = `<p class="error-message animate__animated animate__rubberBand" style="color:red; text-align:center;">All the input fields are required!</p>`
+                $(errBlock).insertBefore(".add-form-btns");
+
+            } else {
+
+                $(`.alltime-container`).empty();
+                displaySchedule();
+                $(`#input-boxes`).empty();
+
+            }
+
 
 
         })
@@ -54,8 +64,6 @@ $(document).ready(function () {
 
     $(document).on(`click`, `.delete-time-btn`, function () {
         deleteSchedule(this.id);
-        console.log(`id`)
-        console.log(this.id)
         $(`.alltime-container`).empty();
         displaySchedule();
 
@@ -76,6 +84,7 @@ $(document).ready(function () {
 
             let response = updateSchedule(id, obj);
             $(`.alltime-container`).empty();
+            $(`.update-container`).empty();
             displaySchedule();
 
         });
@@ -227,10 +236,10 @@ $(document).ready(function () {
                 `<form class="animate__animated animate__backInRight add-form">
             <div class="form-row">
               <div class="col each-input-box">
-                <input style="text-align: center;" type="text" id="start-time-${i}" class="form-control add-new-input-box" placeholder="From">
+                <input style="text-align: center;" type="text" id="start-time-${i}" class="form-control add-new-input-box" placeholder="Start Time" >
               </div>
               <div class="col each-input-box ">
-                <input style="text-align: center;" type="text" id="end-time-${i}" class="form-control add-new-input-box" placeholder="To">
+                <input style="text-align: center;" type="text" id="end-time-${i}" class="form-control add-new-input-box" placeholder="End Time" >
               </div>
             </div>
           </form>`;
@@ -251,15 +260,27 @@ $(document).ready(function () {
         for (let i = 0; i < totalInputBoxes; i++) {
             let startTime = $(`input#start-time-${i}`).val();
             let endTime = $(`input#end-time-${i}`).val()
-            // let isStartTimeValid = validateTime(startTime);
-            // let isEndTimeValid = validateTime(endTime);
-
+            let isStartTimeEmpty = isEmpty(startTime);
+            let isEndTimeEmpty = isEmpty(endTime);
+            //validate
+            if (isStartTimeEmpty || isEndTimeEmpty) {
+                return `field empty`;
+            } else {
                 newSchedule.totalDuration[i] = startTime + "-" + endTime;
-
+            }
 
         }
+
         let res = postSchedule(newSchedule);
         return true;
+    }
+
+    function isEmpty(val) {
+        if (val === "" || val === null) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     function validateTime(timeToValidate) {

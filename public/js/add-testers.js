@@ -34,7 +34,9 @@ $(document).ready(function () {
 
     }
 
-    //DISPLA INPUT BOXES TO UPDATE THE TESTERS NAME
+    //================ LOGIC FUNCTIONS ==================//
+
+    //DISPLAY INPUT BOXES TO UPDATE THE TESTERS NAME
     function displyUpdateNameInputBoxes(newName) {
         const block = `<form class="update-name-form">
         <div class="form-group">
@@ -47,19 +49,19 @@ $(document).ready(function () {
         $(`.update-name`).append(block);
     }
 
-    $(document).on(`click`, `.cancel-update`, function(){
+    // CLEAR UPDATE TESTERS NAME INPUT FEILDS 
+    $(document).on(`click`, `.cancel-update`, function () {
         $(`.update-name`).empty();
     })
 
 
     //GET AND DISPLAY TESTERS
     async function displayTesters() {
+        //GET ALL TESTERS FROM DB
         let testers = await getTesters()
-        console.log(testers)
         $(`.testers`).empty()
 
         const animationArr = [`animate__backInDown`, `animate__backInUp`, `animate__backInRight`, `animate__backInLeft`, `animate__bounceInDown`, `animate__bounceInUp`, `animate__bounceInRight`, `animate__bounceInLeft`, `animate__fadeInDownBig`, `animate__fadeInUpBig`, `animate__fadeInRightBig`, `animate__fadeInLeftBig`, `animate__lightSpeedInRight`, `animate__lightSpeedInLeft`, `animate__lightSpeedInUp`, `animate__lightSpeedInDown`, `animate__rotateInDownLeft`, `animate__rotateInDownRight`, `animate__rotateInUpLeft`, `animate__rotateInUpRight`, `animate__jackInTheBox`, `animate__rollIn`, `animate__zoomInDown`, `animate__zoomInUp`, `animate__zoomInRight`, `animate__zoomInLeft`, `animate__slideInDown`, `animate__slideInUp`, `animate__slideInRight`, `animate__slideInLeft`, `animate__flip`, `animate__flipInX`, `animate__flipInY`];
-
         const randomNumForAnimationAdd = Math.floor(Math.random() * 32);
         const randomClass = animationArr[randomNumForAnimationAdd];
 
@@ -80,37 +82,34 @@ $(document).ready(function () {
 
     //ADD NEW TESTER
     $(`#add-tester-btn`).click(function () {
-        console.log(`clicked`);
         let newTester = {
             name: $(`#add-tester-input`).val(),
             available: true
         }
-        console.log(`newTester`)
-        console.log(newTester)
-        let checkInput = validateInput(newTester.name);
-        if(checkInput){
+        let isValid = validateInput(newTester.name);
+        if (isValid) {
             addTesters(newTester);
             $(`#add-tester-input`).val("")
             displayTesters();
-        }else{
-             let errBlock = `<p class="error-message animate__animated animate__rubberBand">Please enter a value!</p>`
-             $(".add-tester-input-box").append(errBlock);
-             setTimeout(function() { $(".error-message").remove(); }, 3000);
-    
+        } else {
+            $(`.error-message`).remove();
+            let errBlock = `<p class="error-message animate__animated animate__rubberBand">Please enter a value!</p>`
+            $(".add-tester-input-box").append(errBlock);
+
+
         }
     })
 
-    function scrollTo(element){
+    function scrollTo(element) {
         $([document.documentElement, document.body]).animate({
             scrollTop: $(element).offset().top
         }, 1000);
     }
 
-    function validateInput(val){
-        if(val ===""|| val === null){
+    function validateInput(val) {
+        if (val === "" || val === null) {
             return false;
-        }
-        else{
+        } else {
             return true;
         }
     }
