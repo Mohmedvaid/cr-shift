@@ -47,7 +47,14 @@ $(document).ready(function () {
                 let errBlock = `<p class="error-message animate__animated animate__rubberBand" style="color:red; text-align:center;">All the input fields are required!</p>`
                 $(errBlock).insertBefore(".add-form-btns");
 
-            } else {
+            } else if(isError ===`invalid time`){
+                $(`.error-message`).remove();
+                let errBlock = `<p class="error-message animate__animated animate__rubberBand" style="color:red; text-align:center;">Please make sure all the input fields are in 12 hour format. Example:"01:00 PM"</p>`
+                $(errBlock).insertBefore(".add-form-btns");
+
+            }
+            
+            else {
 
                 $(`.alltime-container`).empty();
                 displaySchedule();
@@ -263,7 +270,17 @@ $(document).ready(function () {
             //validate
             if (isStartTimeEmpty || isEndTimeEmpty) {
                 return `field empty`;
-            } else {
+            } 
+            else {
+                let isStartTimeValid = validateTime(startTime);
+                let isEndTimeValid = validateTime(endTime);
+
+                if(!isStartTimeValid||!isEndTimeValid){
+                    console.log(`invalid time`)
+                    return `invalid time`;
+    
+                }
+                console.log(`time is valid!`)
                 newSchedule.totalDuration[i] = startTime + "-" + endTime;
             }
 
@@ -284,15 +301,12 @@ $(document).ready(function () {
     function validateTime(timeToValidate) {
         console.log(`time`)
         console.log(timeToValidate)
-        var regex = /^([0-1][0-9])\:[0-5][0-9]\s[ap]m$/i;
-        var match = timeToValidate.match(regex);
-        console.log(`match`)
-        console.log(match)
-        if (match) {
-            var hour = parseInt(match[1]);
-            if (!isNaN(hour) && hour <= 11) {
-                return true;
-            }
+        var regex =  /(((0[1-9])|(1[0-2])):([0-5])(0|5)\s(A|P)M)/i;
+        let result = regex.test(timeToValidate)
+        console.log(`res`)
+        console.log(result)
+        if (result) {
+                return true
         }
         return false;
     }

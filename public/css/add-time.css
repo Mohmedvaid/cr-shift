@@ -40,7 +40,7 @@
 #input-boxes{
     display: flex;
     flex-direction: column;
-    background: lightgray;
+    background: #e4e4e4;
     margin: 20px 50px;
     border-radius: 12px;
 }
@@ -75,15 +75,18 @@
     justify-content: center;
 }
 
-.add-new-text{
+.add-new-text, .update-time-para{
     text-align: center;
-    font-size: 2rem;
+    font-size: 1.5rem;
+    padding: 10px;
+    font-family: 'Jura', sans-serif;
 }
 
 .update-container{
     display: grid;
     margin: 20px;
     padding: 10px;
+    border-radius: 10px;
 }
 
 .update-current-time-btn{
@@ -102,13 +105,8 @@
     margin: 10px;
 }
 
-.update-time-para{
-    text-align: center;
-    font-size: 2.4rem
-}
-
 .grey-background{
-    background-color: rgb(232 232 232);
+    background-color: #e4e4e4;
 }
 
 .add-schedule-ddl-btn{
