@@ -25,8 +25,6 @@ $(document).ready(function () {
     }
 
     let updateSchedule = function (id, updatedSchedule) {
-        console.log(`naja`)
-        console.log(updatedSchedule);
         return $.ajax({
             url: "/api/schedule/" + id,
             data: updatedSchedule,
