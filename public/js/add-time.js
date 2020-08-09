@@ -47,14 +47,12 @@ $(document).ready(function () {
                 let errBlock = `<p class="error-message animate__animated animate__rubberBand" style="color:red; text-align:center;">All the input fields are required!</p>`
                 $(errBlock).insertBefore(".add-form-btns");
 
-            } else if(isError ===`invalid time`){
+            } else if (isError === `invalid time`) {
                 $(`.error-message`).remove();
                 let errBlock = `<p class="error-message animate__animated animate__rubberBand" style="color:red; text-align:center;">Please make sure all the input fields are in 12 hour format. Example:"01:00 PM"</p>`
                 $(errBlock).insertBefore(".add-form-btns");
 
-            }
-            
-            else {
+            } else {
 
                 $(`.alltime-container`).empty();
                 displaySchedule();
@@ -83,14 +81,29 @@ $(document).ready(function () {
 
         $(document).on(`click`, `.update-current-time-btn`, function () {
             const updatedSchedule = getUpdatedTimeFromDOM(totalInputBoxes);
-            const obj = {
-                totalDuration: updatedSchedule
-            }
+            if (updatedSchedule === `field empty`) {
 
-            let response = updateSchedule(id, obj);
-            $(`.alltime-container`).empty();
-            $(`.update-container`).empty();
-            displaySchedule();
+                $(`.error-message`).remove();
+                let errBlock = `<p class="error-message animate__animated animate__rubberBand" style="color:red; text-align:center;">All the input fields are required!</p>`
+                $(errBlock).insertBefore(".update-current-time-btn");
+
+            } else if (updatedSchedule === `invalid time`) {
+                $(`.error-message`).remove();
+                let errBlock = `<p class="error-message animate__animated animate__rubberBand" style="color:red; text-align:center;">Please make sure all the input fields are in 12 hour format. Example:"01:00 PM"</p>`
+                $(errBlock).insertBefore(".update-current-time-btn");
+
+            } else {
+
+                const obj = {
+                    totalDuration: updatedSchedule
+                }
+    
+                let response = updateSchedule(id, obj);
+                $(`.alltime-container`).empty();
+                $(`.update-container`).empty();
+                displaySchedule();
+
+            }
 
         });
 
@@ -115,7 +128,25 @@ $(document).ready(function () {
         let totalDuration = [];
 
         for (let i = 0; i < totalInputBoxes; i++) {
-            totalDuration[i] = $(`input#start-time-${i}`).val() + "-" + $(`input#end-time-${i}`).val()
+            let startTime = $(`input#start-time-${i}`).val();
+            let endTime = $(`input#end-time-${i}`).val();
+
+            let isStartTimeEmpty = isEmpty(startTime);
+            let isEndTimeEmpty = isEmpty(endTime);
+            //validate
+            if (isStartTimeEmpty || isEndTimeEmpty) {
+                return `field empty`;
+            } else {
+                let isStartTimeValid = validateTime(startTime);
+                let isEndTimeValid = validateTime(endTime);
+
+                if (!isStartTimeValid || !isEndTimeValid) {
+                    return `invalid time`;
+
+                }
+                totalDuration[i] = startTime + "-" + endTime;
+            }
+
         }
         return totalDuration;
 
@@ -270,17 +301,14 @@ $(document).ready(function () {
             //validate
             if (isStartTimeEmpty || isEndTimeEmpty) {
                 return `field empty`;
-            } 
-            else {
+            } else {
                 let isStartTimeValid = validateTime(startTime);
                 let isEndTimeValid = validateTime(endTime);
 
-                if(!isStartTimeValid||!isEndTimeValid){
-                    console.log(`invalid time`)
+                if (!isStartTimeValid || !isEndTimeValid) {
                     return `invalid time`;
-    
+
                 }
-                console.log(`time is valid!`)
                 newSchedule.totalDuration[i] = startTime + "-" + endTime;
             }
 
@@ -299,14 +327,10 @@ $(document).ready(function () {
     }
 
     function validateTime(timeToValidate) {
-        console.log(`time`)
-        console.log(timeToValidate)
-        var regex =  /(((0[1-9])|(1[0-2])):([0-5])(0|5)\s(A|P)M)/i;
+        var regex = /(((0[1-9])|(1[0-2])):([0-5])(0|5)\s(A|P)M)/i;
         let result = regex.test(timeToValidate)
-        console.log(`res`)
-        console.log(result)
         if (result) {
-                return true
+            return true
         }
         return false;
     }
