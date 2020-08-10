@@ -2,6 +2,16 @@
     text-align: center;
 } */
 
+.add-tester-input-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .add-btn-container{
+      display: flex;
+      justify-content: center;
+  }
+
 .card {
     margin: 20px;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
@@ -110,6 +120,10 @@
     .add-tester-input-box {
       display: flex;
       flex-direction: column;
+    }
+
+    .add-btn-container{
+        flex-direction: column;
     }
     #add-tester-input{
         width: 100%;
