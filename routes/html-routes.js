@@ -7,10 +7,10 @@ router.get("/", (req, res) => {
 });
 
 router.get("/testers", (req, res) => {
-    res.sendFile(path.join(__dirname, "../public/html/add-testers.html"))
+    res.sendFile(path.join(__dirname, "../public/html/testers.html"))
 });
 
 router.get("/time", (req, res) => {
-    res.sendFile(path.join(__dirname, "../public/html/add-time.html"))
+    res.sendFile(path.join(__dirname, "../public/html/schedules.html"))
 });
 module.exports = router;
