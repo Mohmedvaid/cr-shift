@@ -78,7 +78,7 @@ $(document).ready(function () {
             return true;
         }
     }
-
+    //function updates the tester name
     function getAndPostUpdatedTester() {
         const id = this.id
         const testerName = $(`h5#${id}`).text();

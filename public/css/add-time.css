@@ -7,8 +7,9 @@
     border-bottom-color: #484848;
     margin-bottom: 50px;
 }
-
-
+.table{
+    text-align: center;
+}
 
 .time{
     margin: 10px;
@@ -21,7 +22,7 @@
 
 .delete-time-btn, .update-time-btn{
     margin: 10px;
-    width: 200px;
+    width: 30%;
 }
 
 .testing-schedule{
