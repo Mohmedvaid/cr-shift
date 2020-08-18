@@ -2,35 +2,6 @@ $(document).ready(function () {
     let totalInputBoxes;
     let allSchedule;
 
-    let postSchedule = function (newSchedule) {
-        return $.ajax({
-            url: "/api/schedule",
-            data: newSchedule,
-            method: "POST"
-        })
-    }
-
-    let getSchedule = function () {
-        return $.ajax({
-            url: "/api/schedule",
-            method: "GET"
-        })
-    }
-
-    let deleteSchedule = function (id) {
-        return $.ajax({
-            url: "/api/schedule/" + id,
-            method: "DELETE"
-        })
-    }
-
-    let updateSchedule = function (id, updatedSchedule) {
-        return $.ajax({
-            url: "/api/schedule/" + id,
-            data: updatedSchedule,
-            method: "PUT"
-        })
-    }
 
     $(document).on(`click`, `.dropdown-item`, function (e) {
         e.stopPropagation()
@@ -66,7 +37,7 @@ $(document).ready(function () {
     })
 
     $(document).on(`click`, `.delete-time-btn`, function () {
-        deleteSchedule(this.id);
+        API.deleteSchedule(this.id);
         $(`.alltime-container`).empty();
         displaySchedule();
 
@@ -98,7 +69,7 @@ $(document).ready(function () {
                     totalDuration: updatedSchedule
                 }
     
-                let response = updateSchedule(id, obj);
+                let response = API.updateSchedule(id, obj);
                 $(`.alltime-container`).empty();
                 $(`.update-container`).empty();
                 displaySchedule();
@@ -189,7 +160,7 @@ $(document).ready(function () {
 
     async function displaySchedule() {
 
-        allSchedule = await getSchedule();
+        allSchedule = await API.getSchedule();
 
         for (let i = 0; i < allSchedule.length; i++) {
             let TesterText = (allSchedule[i].totalDuration.length == 1) ? 'Tester' : 'Testers';
@@ -314,7 +285,7 @@ $(document).ready(function () {
 
         }
 
-        let res = postSchedule(newSchedule);
+        let res = API.postSchedule(newSchedule);
         return true;
     }
 

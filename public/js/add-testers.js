@@ -1,38 +1,8 @@
 $(document).ready(function () {
 
-    //API CALLS 
-    let addTesters = function (newTester) {
-        return $.ajax({
-            url: "/api/testers",
-            data: newTester,
-            method: "POST"
-        });
-    }
+    const testersContainer = $(`.testers`);
 
-    let getTesters = function () {
-        return $.ajax({
-            url: "/api/testers",
-            method: "GET"
-        })
-    }
-
-    let deleteTester = function (id) {
-        return $.ajax({
-            url: "/api/testers/" + id,
-            method: "DELETE"
-        })
-    }
-
-    let updateTester = function (id, newName) {
-        console.log(`NEW NAME`)
-        console.log(newName)
-        return $.ajax({
-            url: "/api/testers/" + id,
-            data: newName,
-            method: "PUT"
-        });
-
-    }
+    const animationClassesArray = [`animate__backInDown`, `animate__backInUp`, `animate__backInRight`, `animate__backInLeft`, `animate__bounceInDown`, `animate__bounceInUp`, `animate__bounceInRight`, `animate__bounceInLeft`, `animate__fadeInDownBig`, `animate__fadeInUpBig`, `animate__fadeInRightBig`, `animate__fadeInLeftBig`, `animate__lightSpeedInRight`, `animate__lightSpeedInLeft`, `animate__lightSpeedInUp`, `animate__lightSpeedInDown`, `animate__rotateInDownLeft`, `animate__rotateInDownRight`, `animate__rotateInUpLeft`, `animate__rotateInUpRight`, `animate__jackInTheBox`, `animate__rollIn`, `animate__zoomInDown`, `animate__zoomInUp`, `animate__zoomInRight`, `animate__zoomInLeft`, `animate__slideInDown`, `animate__slideInUp`, `animate__slideInRight`, `animate__slideInLeft`, `animate__flip`, `animate__flipInX`, `animate__flipInY`];
 
     //================ LOGIC FUNCTIONS ==================//
 
@@ -49,63 +19,73 @@ $(document).ready(function () {
         $(`.update-name`).append(block);
     }
 
-    // CLEAR UPDATE TESTERS NAME INPUT FEILDS 
-    $(document).on(`click`, `.cancel-update`, function () {
-        $(`.update-name`).empty();
-    })
-
-
+    //////Factored
     //GET AND DISPLAY TESTERS
     async function displayTesters() {
+
+        //clear the testercontainer so theres no dublicates
+        testersContainer.empty();
+
         //GET ALL TESTERS FROM DB
-        let testers = await getTesters()
-        $(`.testers`).empty()
+        let testers = await API.getTesters();
+        const randomAnimationClass = getRandomAnimationClass(animationClassesArray);
 
-        const animationArr = [`animate__backInDown`, `animate__backInUp`, `animate__backInRight`, `animate__backInLeft`, `animate__bounceInDown`, `animate__bounceInUp`, `animate__bounceInRight`, `animate__bounceInLeft`, `animate__fadeInDownBig`, `animate__fadeInUpBig`, `animate__fadeInRightBig`, `animate__fadeInLeftBig`, `animate__lightSpeedInRight`, `animate__lightSpeedInLeft`, `animate__lightSpeedInUp`, `animate__lightSpeedInDown`, `animate__rotateInDownLeft`, `animate__rotateInDownRight`, `animate__rotateInUpLeft`, `animate__rotateInUpRight`, `animate__jackInTheBox`, `animate__rollIn`, `animate__zoomInDown`, `animate__zoomInUp`, `animate__zoomInRight`, `animate__zoomInLeft`, `animate__slideInDown`, `animate__slideInUp`, `animate__slideInRight`, `animate__slideInLeft`, `animate__flip`, `animate__flipInX`, `animate__flipInY`];
-        const randomNumForAnimationAdd = Math.floor(Math.random() * 32);
-        const randomClass = animationArr[randomNumForAnimationAdd];
-
+        //create cards for tester names
         testers.forEach(tester => {
             const block = `
-            <div class="card text-center animate__animated ${randomClass}" style="width: 18rem;">
-        <div class="card-body">
-            <h5 class="card-title tester-name" id ="${tester._id}">${tester.name}</h5>
-            <div class="card-btns">
-            <button id="${tester._id}" type="button" class=" delete-tester-btn btn btn-danger">Delete</button>
-            <button id="${tester._id}" type="button" class="update-name-btn btn btn-success">Update</button>
-            </div>
-        </div>
-        </div>`
-            $(`.testers`).append(block)
+            <div class="card text-center animate__animated ${randomAnimationClass}" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title tester-name" id ="${tester._id}">${tester.name}</h5>
+                    <div class="card-btns">
+                    <button id="${tester._id}" type="button" class=" delete-tester-btn btn btn-danger">Delete</button>
+                    <button id="${tester._id}" type="button" class="update-name-btn btn btn-success">Update</button>
+                    </div>
+                </div>
+            </div>`;
+
+            testersContainer.append(block)
         });
     }
 
+    //function takes an array of animation classes and returns a random class
+    function getRandomAnimationClass(animationClassesArray) {
+        //get random number between the length of the animationClassesArray
+        const randomNumForAnimationAdd = Math.floor(Math.random() * animationClassesArray.length);
+        //use a random class to animation
+        return animationClassesArray[randomNumForAnimationAdd];
+
+    }
+
     //ADD NEW TESTER
-    $(`#add-tester-btn`).click(function () {
+    $(`#add-tester-btn`).click(validateAndPostNewTester);
+
+    //function validates and posts the new to tester to db
+    function validateAndPostNewTester() {
         let newTester = {
             name: $(`#add-tester-input`).val(),
             available: true
         }
         let isValid = validateInput(newTester.name);
         if (isValid) {
-            addTesters(newTester);
-            $(`#add-tester-input`).val("")
+            API.addTesters(newTester);
+            $(`#add-tester-input`).val("");
+            $(`.error-message`).remove();
             displayTesters();
         } else {
             $(`.error-message`).remove();
             let errBlock = `<p class="error-message animate__animated animate__rubberBand">Please enter a value!</p>`
             $(".add-tester-input-box").append(errBlock);
-
-
         }
-    })
+    }
 
+    //funtion scrolls to the element provided
     function scrollTo(element) {
         $([document.documentElement, document.body]).animate({
             scrollTop: $(element).offset().top
         }, 1000);
     }
 
+    //function takes a value and returns false if null or empty string else returns true
     function validateInput(val) {
         if (val === "" || val === null) {
             return false;
@@ -122,11 +102,10 @@ $(document).ready(function () {
         scrollTo(`.update-name`)
         $(document).on(`click`, `.send-new-name`, function () {
             const newName = $(`#newName`).val();
-            console.log("NEW NAME==" + newName)
             const obj = {
                 name: newName
             }
-            updateTester(id, obj);
+            API.updateTester(id, obj);
             displayTesters();
         })
     })
@@ -134,8 +113,13 @@ $(document).ready(function () {
 
     $(document).on('click', '.delete-tester-btn', function () {
         console.log(this.id)
-        deleteTester(this.id);
+        API.deleteTester(this.id);
         displayTesters();
+    });
+
+    // CLEAR UPDATE TESTERS NAME INPUT FEILDS 
+    $(document).on(`click`, `.cancel-update`, function () {
+        $(`.update-name`).empty();
     })
 
 
