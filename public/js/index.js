@@ -18,14 +18,14 @@ $(document).ready(function () {
 
     let updateTester = function (testerId) {
         return $.ajax({
-            url: "/api/tester/update/" + testerId,
+            url: "/api/testers/update/" + testerId,
             method: "PUT"
         })
     }
 
     let updateAllTester = function () {
         return $.ajax({
-            url: "/api/updateall",
+            url: "/api/testers/updateall",
             method: "PUT"
         })
     }

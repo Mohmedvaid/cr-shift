@@ -18,7 +18,7 @@ $(document).ready(function () {
 
     let deleteTester = function (id) {
         return $.ajax({
-            url: "/api/tester/" + id,
+            url: "/api/testers/" + id,
             method: "DELETE"
         })
     }
@@ -27,7 +27,7 @@ $(document).ready(function () {
         console.log(`NEW NAME`)
         console.log(newName)
         return $.ajax({
-            url: "/api/tester/" + id,
+            url: "/api/testers/" + id,
             data: newName,
             method: "PUT"
         });
