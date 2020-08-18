@@ -1,39 +1,5 @@
 $(document).ready(function () {
 
-    //API CALLS 
-    let addTesters = function (newTester) {
-        return $.ajax({
-            url: "/api/testers",
-            data: newTester,
-            method: "POST"
-        });
-    }
-
-    let getTesters = function () {
-        return $.ajax({
-            url: "/api/testers",
-            method: "GET"
-        })
-    }
-
-    let deleteTester = function (id) {
-        return $.ajax({
-            url: "/api/testers/" + id,
-            method: "DELETE"
-        })
-    }
-
-    let updateTester = function (id, newName) {
-        console.log(`NEW NAME`)
-        console.log(newName)
-        return $.ajax({
-            url: "/api/testers/" + id,
-            data: newName,
-            method: "PUT"
-        });
-
-    }
-
     //================ LOGIC FUNCTIONS ==================//
 
     //DISPLAY INPUT BOXES TO UPDATE THE TESTERS NAME
@@ -58,7 +24,7 @@ $(document).ready(function () {
     //GET AND DISPLAY TESTERS
     async function displayTesters() {
         //GET ALL TESTERS FROM DB
-        let testers = await getTesters()
+        let testers = await API.getTesters();
         $(`.testers`).empty()
 
         const animationArr = [`animate__backInDown`, `animate__backInUp`, `animate__backInRight`, `animate__backInLeft`, `animate__bounceInDown`, `animate__bounceInUp`, `animate__bounceInRight`, `animate__bounceInLeft`, `animate__fadeInDownBig`, `animate__fadeInUpBig`, `animate__fadeInRightBig`, `animate__fadeInLeftBig`, `animate__lightSpeedInRight`, `animate__lightSpeedInLeft`, `animate__lightSpeedInUp`, `animate__lightSpeedInDown`, `animate__rotateInDownLeft`, `animate__rotateInDownRight`, `animate__rotateInUpLeft`, `animate__rotateInUpRight`, `animate__jackInTheBox`, `animate__rollIn`, `animate__zoomInDown`, `animate__zoomInUp`, `animate__zoomInRight`, `animate__zoomInLeft`, `animate__slideInDown`, `animate__slideInUp`, `animate__slideInRight`, `animate__slideInLeft`, `animate__flip`, `animate__flipInX`, `animate__flipInY`];
@@ -88,7 +54,7 @@ $(document).ready(function () {
         }
         let isValid = validateInput(newTester.name);
         if (isValid) {
-            addTesters(newTester);
+            API.addTesters(newTester);
             $(`#add-tester-input`).val("")
             displayTesters();
         } else {
@@ -126,7 +92,7 @@ $(document).ready(function () {
             const obj = {
                 name: newName
             }
-            updateTester(id, obj);
+            API.updateTester(id, obj);
             displayTesters();
         })
     })
@@ -134,7 +100,7 @@ $(document).ready(function () {
 
     $(document).on('click', '.delete-tester-btn', function () {
         console.log(this.id)
-        deleteTester(this.id);
+        API.deleteTester(this.id);
         displayTesters();
     })
 
