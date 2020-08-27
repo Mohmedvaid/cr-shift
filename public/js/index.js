@@ -55,12 +55,12 @@ $(document).ready(function () {
             const block = ` <div class="Tester-container ${currentClass}">
             <div class="tester-name" id="${availableTesters[i]._id}">${availableTesters[i].name}</div>
             <div class="tester-time">${availableTime.totalDuration[i]}</div>
-            <button id="${availableTesters[i]._id}" type="button" class="remove-tester-btn remove-btn btn btn-danger">Unavailable</button>
+            <button id="${availableTesters[i]._id}" type="button" class="remove-tester-btn remove-btn btn btn-danger">Remove</button>
             </div>
             `
             $(`.schedule-container`).append(block)
         }
-        let headings = `<div class="headings"><p>Name</p><p>Time</p></div>`
+        let headings = `<div class="headings"><p><span class="josefin-fonts">Name<span/></p><p><span class="josefin-fonts">Time</span></p></div>`
         $(`.schedule-container`).prepend(headings)
     }
 
